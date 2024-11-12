@@ -1,14 +1,16 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
+import { Avatar, Button } from './index';
 
 export default function TopNavBar() {
+  const { isAuthenticated, SetIsAuthenticated } = useContext(AuthContext);
   return (
     <header className="bg-white shadow p-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <Link to={'/'}>
-            <p className="text-2xl font-mono">
-              stack<span className="font-bold">overflow</span>
-            </p>
+            <p className="text-2xl font-serif">QnA Hub</p>
           </Link>
           <input
             type="text"
@@ -16,13 +18,16 @@ export default function TopNavBar() {
             className="border rounded-lg px-4 py-2 w-80"
           />
         </div>
-        <div className="flex items-center space-x-4">
-          <img
-            src="https://placehold.co/100x100"
-            alt="profile"
-            className="w-9 h-9 rounded-full"
-          />
-        </div>
+        <section>
+          {isAuthenticated ? (
+            <Avatar />
+          ) : (
+            <section className="flex gap-x-3">
+              <Button link={'/auth'} text={'Sign in'} />
+              <Button link={'/auth'} text={'Sign up'} />
+            </section>
+          )}
+        </section>
       </div>
     </header>
   );

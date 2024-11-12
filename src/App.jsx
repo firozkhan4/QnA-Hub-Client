@@ -1,30 +1,22 @@
-import {
-  Auth,
-  Ask,
-  Layout,
-  Saves,
-  Home,
-  Questions,
-  Tags,
-  PageLayout,
-} from './pages/index';
-import { Route, Routes } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
+import { AuthContext } from './contexts/AuthContext';
+import Router from './Router';
+import { loadUser } from './apis/loadUser';
+import { Navigate } from 'react-router-dom';
 
-export function App() {
+export default function App() {
+  const { setIsAuthenticated } = useContext(AuthContext);
+  useEffect(() => {
+    const data = loadUser();
+    if (data) {
+      setIsAuthenticated(true);
+    } else {
+      <Navigate to={'/auth'} />;
+    }
+  });
   return (
-    <Routes>
-      <Route path="/auth" element={<Auth />} />
-      <Route path="/" element={<Layout />}>
-        <Route path="/" element={<PageLayout />}>
-          <Route index element={<Home />} />
-          <Route path="questions" element={<Questions />} />
-          <Route path="tags" element={<Tags />} />
-          <Route path="saves" element={<Saves />} />
-        </Route>
-        <Route path="ask" element={<Ask />} />
-      </Route>
-    </Routes>
+    <div>
+      <Router />
+    </div>
   );
 }
-
-export default App;

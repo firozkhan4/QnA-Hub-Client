@@ -30,7 +30,7 @@ const AskInputProp = [
 
 export default function Ask() {
   return (
-    <div className="container mx-auto pb-10">
+    <div className="container mx-auto pb-10 w-2/4">
       <section className="py-5 flex items-center justify-between">
         <section className="px-10">
           <VscMortarBoard size={60} />
