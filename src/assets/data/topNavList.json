@@ -1,0 +1,17 @@
+[
+    {
+      "name": "Home",
+      "link": "/",
+      "icon": "src/assets/svg/home_svg.svg"
+    },
+    {
+      "name": "Questions",
+      "link": "/questions",
+      "icon": "src/assets/svg/question.svg"
+    },
+    {
+      "name": "Tags",
+      "link": "/tags",
+      "icon":"src/assets/svg/tag.svg"
+    }
+]

@@ -1,0 +1,17 @@
+[
+    {
+      "name": "Saves",
+      "link": "/saves",
+      "icon": "src/assets/svg/bookmark.svg"
+    },
+    {
+      "name": "Users",
+      "link": "/users",
+      "icon": "src/assets/svg/user.svg"
+    },
+    {
+      "name": "Companies",
+      "link": "/companies",
+      "icon":"src/assets/svg/company.svg"
+    }
+]
