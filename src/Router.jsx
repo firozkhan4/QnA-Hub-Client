@@ -18,7 +18,11 @@ export default function Router() {
   return (
     <Routes>
       <Route
-        path={'/auth'}
+        path={'/login'}
+        element={isAuthenticated ? <Navigate to={'/'} replace /> : <Auth />}
+      />
+      <Route
+        path={'/register'}
         element={isAuthenticated ? <Navigate to={'/'} replace /> : <Auth />}
       />
       <Route path="/" element={<Layout />}>
@@ -32,7 +36,7 @@ export default function Router() {
         <Route
           path="ask"
           element={
-            isAuthenticated ? <Ask /> : <Navigate to={'/auth'} replace />
+            isAuthenticated ? <Ask /> : <Navigate to={'/login'} replace />
           }
         />
       </Route>

@@ -23,8 +23,8 @@ export default function TopNavBar() {
             <Avatar />
           ) : (
             <section className="flex gap-x-3">
-              <Button link={'/auth'} text={'Sign in'} />
-              <Button link={'/auth'} text={'Sign up'} />
+              <Button link={'/login'} text={'Sign in'} />
+              <Button link={'/register'} text={'Sign up'} />
             </section>
           )}
         </section>

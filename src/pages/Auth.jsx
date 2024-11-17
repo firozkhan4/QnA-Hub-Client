@@ -1,11 +1,10 @@
+import { useContext, useEffect, useState } from 'react';
+import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { ImGithub } from 'react-icons/im';
-import { FaFacebook } from 'react-icons/fa';
-import { useContext, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Avatar } from '../components/index';
 import { AuthContext } from '../contexts/AuthContext';
-import { Link, Navigate } from 'react-router-dom';
-import axios from 'axios';
 import useAuth from '../hooks/useAuth';
 
 // Social login options
@@ -27,37 +26,39 @@ const loginOptions = [
 export function Auth() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(null);
-  const [error, setError] = useState(null);
-  const [user, setUser] = useState(null);
+  const [email, setEmail] = useState('');
+  const { loading, error, data, fetchUserData } = useAuth();
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const path = useLocation().pathname;
 
-  const fetchUserData = async (username, password) => {
-    try {
-      setLoading(true);
-      const response = await axios.post(
-        'http://localhost:8080/api/auth/login',
-        { username, password },
-        { withCredentials: true }
-      );
+  // const fetchUserData = async (username, password) => {
+  //   try {
+  //     setLoading(true);
+  //     const response = await axios.post(
+  //       'http://localhost:8080/api/auth/login',
+  //       { username, password },
+  //       { withCredentials: true }
+  //     );
 
-      console.log('Auth', response.data);
-      if (response.status === 200 && response.data) {
-        setUser(response.data);
-        setIsAuthenticated(true);
-      }
-    } catch (error) {
-      setError(error.message);
-      console.error('Auth Error');
-      setIsAuthenticated(() => false);
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     console.log('Auth', response.data);
+  //     if (response.status === 200 && response.data) {
+  //       setUser(response.data);
+  //       setIsAuthenticated(true);
+  //     }
+  //   } catch (error) {
+  //     setError(error.message);
+  //     console.error('Auth Error');
+  //     setIsAuthenticated(() => false);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const handleLogin = () => {
-    fetchUserData(username, password);
-    console.log(user);
+    fetchUserData(username, password, 'login');
+  };
+  const handleRegister = () => {
+    fetchUserData(username, password, email, 'register');
   };
 
   return (
@@ -90,6 +91,17 @@ export function Auth() {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
+          {path === '/register' && (
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              className="border px-2 py-2 font-medium"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          )}
           <input
             type="password"
             name="password"
@@ -105,9 +117,12 @@ export function Auth() {
           >
             Login
           </button>
-          <Link to="/register" className="text-center">
-            Register?
-          </Link>
+          <button
+            onClick={handleRegister}
+            className="text-black border-2 font-semibold py-2 px-3 rounded-md"
+          >
+            Register
+          </button>
         </div>
       </div>
     </div>
