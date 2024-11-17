@@ -3,7 +3,7 @@ import { bottomNavList, topNavList } from '../assets/data/index';
 
 export default function NavBar() {
   return (
-    <div className="w-1/4">
+    <div className="w-1/4 ">
       <section className="space-y-4">
         <NavList navList={topNavList} />
         <NavList navList={bottomNavList} />

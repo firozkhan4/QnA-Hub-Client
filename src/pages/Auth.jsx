@@ -5,6 +5,7 @@ import { useContext, useState } from 'react';
 import { Avatar } from '../components/index';
 import { AuthContext } from '../contexts/AuthContext';
 import { Link, Navigate } from 'react-router-dom';
+import axios from 'axios';
 import useAuth from '../hooks/useAuth';
 
 // Social login options
@@ -40,16 +41,17 @@ export function Auth() {
         { withCredentials: true }
       );
 
+      console.log('Auth', response.data);
       if (response.status === 200 && response.data) {
         setUser(response.data);
         setIsAuthenticated(true);
       }
     } catch (error) {
       setError(error.message);
-      setIsAuthenticated(false);
+      console.error('Auth Error');
+      setIsAuthenticated(() => false);
     } finally {
       setLoading(false);
-      setIsAuthenticated(true);
     }
   };
 
@@ -60,6 +62,11 @@ export function Auth() {
 
   return (
     <div>
+      {error && (
+        <div>
+          <p>{error}</p>
+        </div>
+      )}
       <div className="flex justify-between px-10 py-3 border-b-2 items-center">
         <Link to="/" className="font-medium text-2xl font-serif">
           QnA Hub

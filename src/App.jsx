@@ -1,19 +1,42 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from './contexts/AuthContext';
 import Router from './Router';
-import { loadUser } from './apis/loadUser';
-import { Navigate } from 'react-router-dom';
+import { UserContext } from './contexts/UserContext';
 
 export default function App() {
-  const { setIsAuthenticated } = useContext(AuthContext);
-  useEffect(() => {
-    const data = loadUser();
-    if (data) {
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const { user, setUser } = useContext(UserContext);
+  const [data, setData] = useState(null);
+
+  const loadUser = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/users', {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch user information');
+      }
+
+      const userData = await response.json();
+      console.log('User Information:', userData);
+
+      setUser(userData);
       setIsAuthenticated(true);
-    } else {
-      <Navigate to={'/auth'} />;
+    } catch (error) {
+      console.error('Error:', error.message);
+      setIsAuthenticated(false);
     }
-  });
+  };
+
+  useEffect(() => {
+    loadUser();
+  }, []);
+
   return (
     <div>
       <Router />

@@ -8,6 +8,7 @@ import {
   Questions,
   Tags,
   PageLayout,
+  Question,
 } from './pages/index';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthContext } from './contexts/AuthContext';
@@ -24,10 +25,16 @@ export default function Router() {
         <Route path="/" element={<PageLayout />}>
           <Route index element={<Home />} />
           <Route path="questions" element={<Questions />} />
+          <Route path="questions/:id" element={<Question />} />
           <Route path="tags" element={<Tags />} />
           <Route path="saves" element={<Saves />} />
         </Route>
-        <Route path="ask" element={<Ask />} />
+        <Route
+          path="ask"
+          element={
+            isAuthenticated ? <Ask /> : <Navigate to={'/auth'} replace />
+          }
+        />
       </Route>
     </Routes>
   );

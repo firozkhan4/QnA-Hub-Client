@@ -4,7 +4,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import { Avatar, Button } from './index';
 
 export default function TopNavBar() {
-  const { isAuthenticated, SetIsAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
   return (
     <header className="bg-white shadow p-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
