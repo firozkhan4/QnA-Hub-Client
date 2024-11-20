@@ -1,22 +1,10 @@
 import React, { useRef, useState } from 'react';
 import { VscMortarBoard } from 'react-icons/vsc';
-import ReactQuill from 'react-quill';
+
 import 'react-quill/dist/quill.snow.css';
 import background from '../assets/svg/background.svg';
 import { useNavigate } from 'react-router-dom';
-
-const toolbarOptions = [
-  [
-    'bold',
-    'italic',
-    'code-block',
-    'link',
-    'image',
-    { size: ['small', false, 'large', 'huge'] },
-  ],
-];
-
-const quillModule = { toolbar: toolbarOptions };
+import { QuillInput } from '../components';
 
 export default function Ask() {
   const [title, setTitle] = useState('');
@@ -118,22 +106,3 @@ function InputField({ label, description, placeholder, value, onChange }) {
     </div>
   );
 }
-
-/**
- * QuillInput Component: Rich Text Editor Input Field
- */
-const QuillInput = React.forwardRef(({ label, description }, ref) => {
-  return (
-    <div className="bg-white border-2 rounded px-4 py-3 h-[20rem]">
-      <p className="font-bold text-sm">{label}</p>
-      <p className="text-gray-500 text-sm mb-2">{description}</p>
-      <div className="overflow-hidden h-5/6">
-        <ReactQuill
-          modules={quillModule}
-          className="rounded h-full border-b-2"
-          ref={ref}
-        />
-      </div>
-    </div>
-  );
-});

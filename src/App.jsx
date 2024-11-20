@@ -10,7 +10,7 @@ export default function App() {
 
   const loadUser = async () => {
     try {
-      const response = await fetch('http://localhost:8080/api/users', {
+      const response = await fetch('http://localhost:8080/api/users/me', {
         method: 'GET',
         credentials: 'include',
         headers: {

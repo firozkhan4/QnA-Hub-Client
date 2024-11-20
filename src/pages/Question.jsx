@@ -1,21 +1,34 @@
-import { useQuery } from '@apollo/client';
-import React from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-import { GET_QUESTION_BY_ID } from '../graphql/questions';
+import React, { useContext, useRef } from 'react';
+import { useParams } from 'react-router-dom';
+import Controllers from '../apis';
+import { AnswerList, QuillInput } from '../components';
+import { UserContext } from '../contexts/UserContext';
 
 export default function Question() {
+  const { user } = useContext(UserContext);
+  const answerRef = useRef(null);
   const { id } = useParams();
 
-  const { loading, error, data } = useQuery(GET_QUESTION_BY_ID, {
-    variables: {
-      id,
-    },
-  });
+  const handleAnswer = async () => {
+    const content = answerRef.current.getEditor().getText().trim();
+    answerRef.current.getEditor().setContents([]);
+    const answerController = new Controllers.AnswerController();
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+    const answerPayload = {
+      content,
+      question: id,
+      user: user.id,
+    };
+
+    try {
+      const response = await answerController.create(answerPayload);
+      console.log(response);
+    } catch (error) {
+      console.log('Something went wrong in Question component');
+    }
+  };
   return (
-    <main className="flex-1 bg-white p-6 max-w-3xl mx-auto shadow-md rounded-lg">
+    <main className="flex-1 bg-white p-6 max-w-3xl mx-auto shadow-md rounded-lg space-y-8">
       <div>
         <h2 className="text-2xl font-bold">
           I need to use underline tool option for my ckeditor used in .net mvc
@@ -41,19 +54,17 @@ export default function Question() {
         </div>
       </div>
 
-      <div className="mt-4 flex space-x-2">
-        <span className="bg-gray-200 text-gray-800 px-2 py-1 rounded">
-          javascript
-        </span>
-        <span className="bg-gray-200 text-gray-800 px-2 py-1 rounded">
-          asp.net-mvc
-        </span>
-        <span className="bg-gray-200 text-gray-800 px-2 py-1 rounded">
-          ckeditor
-        </span>
-        <span className="bg-gray-200 text-gray-800 px-2 py-1 rounded">
-          ckeditor5
-        </span>
+      <div className="grid gap-y-4 mx-auto">
+        <QuillInput label={'Your Answer'} ref={answerRef} />
+        <button
+          className="bg-blue-500 text-white py-2 px-2 font-bold w-44 rounded "
+          onClick={handleAnswer}
+        >
+          Post Your Answer
+        </button>
+      </div>
+      <div>
+        <AnswerList questionId={id} />
       </div>
     </main>
   );

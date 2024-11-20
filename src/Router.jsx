@@ -9,9 +9,11 @@ import {
   Tags,
   PageLayout,
   Question,
+  Logout,
 } from './pages/index';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthContext } from './contexts/AuthContext';
+import NotFound from './pages/NotFound';
 
 export default function Router() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -24,6 +26,10 @@ export default function Router() {
       <Route
         path={'/register'}
         element={isAuthenticated ? <Navigate to={'/'} replace /> : <Auth />}
+      />
+      <Route
+        path={'/logout'}
+        element={isAuthenticated ? <Logout /> : <Navigate to={'/'} replace />}
       />
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<PageLayout />}>
@@ -40,6 +46,7 @@ export default function Router() {
           }
         />
       </Route>
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   );
 }

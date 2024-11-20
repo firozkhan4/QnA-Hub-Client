@@ -1,13 +1,12 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { ImGithub } from 'react-icons/im';
-import { Link, useLocation } from 'react-router-dom';
-import { Avatar } from '../components/index';
+import { useLocation } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import useAuth from '../hooks/useAuth';
+import { TopNavBar } from '../components';
 
-// Social login options
 const loginOptions = [
   {
     name: 'Google',
@@ -31,7 +30,6 @@ export function Auth() {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const path = useLocation().pathname;
 
-  // const fetchUserData = async (username, password) => {
   //   try {
   //     setLoading(true);
   //     const response = await axios.post(
@@ -55,7 +53,7 @@ export function Auth() {
   // };
 
   const handleLogin = () => {
-    fetchUserData(username, password, 'login');
+    fetchUserData(username, password, email, 'login');
   };
   const handleRegister = () => {
     fetchUserData(username, password, email, 'register');
@@ -68,7 +66,7 @@ export function Auth() {
           <p>{error}</p>
         </div>
       )}
-      <div className="flex justify-between px-10 py-3 border-b-2 items-center">
+      {/* <div className="flex justify-between px-10 py-3 border-b-2 items-center">
         <Link to="/" className="font-medium text-2xl font-serif">
           QnA Hub
         </Link>
@@ -78,7 +76,8 @@ export function Auth() {
           className="border w-2/4 px-3 rounded-md h-11"
         />
         {isAuthenticated && <Avatar />}
-      </div>
+      </div> */}
+      <TopNavBar />
       <div className="flex flex-col items-center gap-y-7 py-10 w-2/3 m-auto">
         <SocialLogin loginOptions={loginOptions} />
         <div className="flex flex-col border px-4 py-5 gap-y-4 w-1/3 rounded-md">
@@ -111,18 +110,21 @@ export function Auth() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button
-            onClick={handleLogin}
-            className="bg-blue-400 text-white font-semibold py-2 px-3 rounded-md"
-          >
-            Login
-          </button>
-          <button
-            onClick={handleRegister}
-            className="text-black border-2 font-semibold py-2 px-3 rounded-md"
-          >
-            Register
-          </button>
+          {path === '/login' ? (
+            <button
+              onClick={handleLogin}
+              className="bg-blue-400 text-white font-semibold py-2 px-3 rounded-md"
+            >
+              Login
+            </button>
+          ) : (
+            <button
+              onClick={handleRegister}
+              className="bg-blue-400 text-white font-semibold py-2 px-3 rounded-md"
+            >
+              Register
+            </button>
+          )}
         </div>
       </div>
     </div>

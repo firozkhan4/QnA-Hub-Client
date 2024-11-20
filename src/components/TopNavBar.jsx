@@ -20,7 +20,10 @@ export default function TopNavBar() {
         </div>
         <section>
           {isAuthenticated ? (
-            <Avatar />
+            <section>
+              <Avatar />
+              <Link to={'/logout'}>Logout</Link>
+            </section>
           ) : (
             <section className="flex gap-x-3">
               <Button link={'/login'} text={'Sign in'} />
