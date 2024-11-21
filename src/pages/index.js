@@ -9,6 +9,7 @@ import Users from './Users';
 import PageLayout from './PageLayout';
 import Question from './Question';
 import Logout from './logout';
+import NotFound from './NotFound';
 
 export {
   Auth,
@@ -22,4 +23,5 @@ export {
   Users,
   PageLayout,
   Logout,
+  NotFound,
 };

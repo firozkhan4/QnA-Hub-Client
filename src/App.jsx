@@ -23,7 +23,6 @@ export default function App() {
       }
 
       const userData = await response.json();
-      console.log('User Information:', userData);
 
       setUser(userData);
       setIsAuthenticated(true);

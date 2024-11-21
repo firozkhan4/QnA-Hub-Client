@@ -10,10 +10,11 @@ import {
   PageLayout,
   Question,
   Logout,
+  NotFound,
 } from './pages/index';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthContext } from './contexts/AuthContext';
-import NotFound from './pages/NotFound';
+import AdminDashboard from './admin/AdminDashboard';
 
 export default function Router() {
   const { isAuthenticated } = useContext(AuthContext);
@@ -47,6 +48,7 @@ export default function Router() {
         />
       </Route>
       <Route path="/*" element={<NotFound />} />
+      <Route path="/admin/*" element={<AdminDashboard />} />
     </Routes>
   );
 }

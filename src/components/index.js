@@ -7,6 +7,8 @@ import Avatar from './Avatar';
 import Button from './Button';
 import QuillInput from './QuillInput';
 import AnswerList from './AnswerList';
+import Notification from './Notification';
+
 export {
   Avatar,
   Button,
@@ -17,4 +19,5 @@ export {
   QuestionCard,
   QuillInput,
   AnswerList,
+  Notification,
 };
