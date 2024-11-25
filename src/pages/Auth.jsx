@@ -3,9 +3,9 @@ import { FaFacebook } from 'react-icons/fa';
 import { FcGoogle } from 'react-icons/fc';
 import { ImGithub } from 'react-icons/im';
 import { useLocation } from 'react-router-dom';
+import { TopNavBar } from '../components';
 import { AuthContext } from '../contexts/AuthContext';
 import useAuth from '../hooks/useAuth';
-import { TopNavBar } from '../components';
 
 const loginOptions = [
   {
@@ -27,30 +27,17 @@ export function Auth() {
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
   const { loading, error, data, fetchUserData } = useAuth();
-  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const path = useLocation().pathname;
 
-  //   try {
-  //     setLoading(true);
-  //     const response = await axios.post(
-  //       'http://localhost:8080/api/auth/login',
-  //       { username, password },
-  //       { withCredentials: true }
-  //     );
-
-  //     console.log('Auth', response.data);
-  //     if (response.status === 200 && response.data) {
-  //       setUser(response.data);
-  //       setIsAuthenticated(true);
-  //     }
-  //   } catch (error) {
-  //     setError(error.message);
-  //     console.error('Auth Error');
-  //     setIsAuthenticated(() => false);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      if (path === '/login') {
+        handleLogin();
+      } else {
+        handleRegister();
+      }
+    }
+  };
 
   const handleLogin = () => {
     fetchUserData(username, password, email, 'login');
@@ -61,22 +48,6 @@ export function Auth() {
 
   return (
     <div>
-      {error && (
-        <div>
-          <p>{error}</p>
-        </div>
-      )}
-      {/* <div className="flex justify-between px-10 py-3 border-b-2 items-center">
-        <Link to="/" className="font-medium text-2xl font-serif">
-          QnA Hub
-        </Link>
-        <input
-          type="text"
-          placeholder="Search.."
-          className="border w-2/4 px-3 rounded-md h-11"
-        />
-        {isAuthenticated && <Avatar />}
-      </div> */}
       <TopNavBar />
       <div className="flex flex-col items-center gap-y-7 py-10 w-2/3 m-auto">
         <SocialLogin loginOptions={loginOptions} />
@@ -89,6 +60,8 @@ export function Auth() {
             className="border px-2 py-2 font-medium"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            required
+            onKeyDown={handleEnter}
           />
           {path === '/register' && (
             <input
@@ -99,6 +72,8 @@ export function Auth() {
               className="border px-2 py-2 font-medium"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
+              onKeyDown={handleEnter}
             />
           )}
           <input
@@ -109,6 +84,8 @@ export function Auth() {
             className="border px-2 py-2 font-medium"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
+            onKeyDown={handleEnter}
           />
           {path === '/login' ? (
             <button

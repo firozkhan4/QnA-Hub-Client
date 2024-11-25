@@ -1,13 +1,16 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Controllers from '../apis';
 import { AnswerList, QuillInput } from '../components';
 import { UserContext } from '../contexts/UserContext';
+import { QuestionContext } from '../contexts/QuestionContext';
 
 export default function Question() {
   const { user } = useContext(UserContext);
   const answerRef = useRef(null);
   const { id } = useParams();
+  const { questions } = useContext(QuestionContext);
+  const [question, setQuestion] = useState('');
 
   const handleAnswer = async () => {
     const content = answerRef.current.getEditor().getText().trim();
@@ -27,27 +30,24 @@ export default function Question() {
       console.log('Something went wrong in Question component');
     }
   };
+
+  useEffect(() => {
+    questions.forEach((element) => {
+      if (element.id === id) {
+        setQuestion(element);
+      }
+    });
+  });
   return (
     <main className="flex-1 bg-white p-6 max-w-3xl mx-auto shadow-md rounded-lg space-y-8">
       <div>
-        <h2 className="text-2xl font-bold">
-          I need to use underline tool option for my ckeditor used in .net mvc
-          project
-        </h2>
+        <h2 className="text-2xl font-bold">{question.title}</h2>
         <p className="text-sm text-gray-600 mt-2">
           Asked today | Modified today | Viewed 2 times
         </p>
         <div className="mt-6 text-gray-800">
-          <p className="mb-4">
-            I used this ckeditor cdn:
-            <code className="bg-gray-200 rounded p-1">
-              https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js
-            </code>
-          </p>
-          <p className="mb-4">
-            When I use this code in js for ckeditor creation with toolbar
-            options, I get all the options listed but not underline tool...
-          </p>
+          <p className="mb-4">{question.heading}</p>
+          <p className="mb-4">{question.content}</p>
           <a href="#" className="text-blue-500">
             Read more
           </a>

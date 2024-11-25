@@ -52,6 +52,8 @@ class UserController {
       throw error;
     }
   }
+
+  
 }
 
 export default UserController;

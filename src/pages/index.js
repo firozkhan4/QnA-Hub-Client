@@ -10,9 +10,11 @@ import PageLayout from './PageLayout';
 import Question from './Question';
 import Logout from './logout';
 import NotFound from './NotFound';
+import Profile from './Profile';
 
 export {
   Auth,
+  Profile,
   Question,
   Layout,
   Ask,

@@ -1,37 +1,52 @@
 import { useContext } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import AdminDashboard from './admin/AdminDashboard';
+import { AuthContext } from './contexts/AuthContext';
 import {
-  Auth,
   Ask,
-  Layout,
-  Saves,
+  Auth,
   Home,
-  Questions,
-  Tags,
-  PageLayout,
-  Question,
+  Layout,
   Logout,
   NotFound,
-} from './pages/index';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { AuthContext } from './contexts/AuthContext';
-import AdminDashboard from './admin/AdminDashboard';
+  PageLayout,
+  Question,
+  Questions,
+  Saves,
+  Profile,
+  Tags,
+} from './pages';
 
 export default function Router() {
-  const { isAuthenticated } = useContext(AuthContext);
+  const { isAuthenticated, isAdmin } = useContext(AuthContext);
+
   return (
     <Routes>
       <Route
-        path={'/login'}
-        element={isAuthenticated ? <Navigate to={'/'} replace /> : <Auth />}
+        path="/login"
+        element={
+          <PrivateRoute condition={!isAuthenticated} redirectTo="/">
+            <Auth />
+          </PrivateRoute>
+        }
       />
       <Route
-        path={'/register'}
-        element={isAuthenticated ? <Navigate to={'/'} replace /> : <Auth />}
+        path="/register"
+        element={
+          <PrivateRoute condition={!isAuthenticated} redirectTo="/">
+            <Auth />
+          </PrivateRoute>
+        }
       />
       <Route
-        path={'/logout'}
-        element={isAuthenticated ? <Logout /> : <Navigate to={'/'} replace />}
+        path="/logout"
+        element={
+          <PrivateRoute condition={isAuthenticated} redirectTo="/">
+            <Logout />
+          </PrivateRoute>
+        }
       />
+
       <Route path="/" element={<Layout />}>
         <Route path="/" element={<PageLayout />}>
           <Route index element={<Home />} />
@@ -43,12 +58,36 @@ export default function Router() {
         <Route
           path="ask"
           element={
-            isAuthenticated ? <Ask /> : <Navigate to={'/login'} replace />
+            <PrivateRoute condition={isAuthenticated} redirectTo="/login">
+              <Ask />
+            </PrivateRoute>
           }
         />
       </Route>
+
+      <Route
+        path="/profile"
+        element={
+          <PrivateRoute condition={isAuthenticated} redirectTo="/login">
+            <Profile />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/admin"
+        element={
+          <PrivateRoute condition={isAdmin} redirectTo="/not-authorized">
+            <AdminDashboard />
+          </PrivateRoute>
+        }
+      />
+
       <Route path="/*" element={<NotFound />} />
-      <Route path="/admin/*" element={<AdminDashboard />} />
     </Routes>
   );
 }
+
+const PrivateRoute = ({ condition, redirectTo, children }) => {
+  return condition ? children : <Navigate to={redirectTo} replace />;
+};

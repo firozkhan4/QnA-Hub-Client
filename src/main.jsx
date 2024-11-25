@@ -4,8 +4,9 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App.jsx';
 import { AuthProvider } from './contexts/AuthContext';
-import { UserProvider } from './contexts/UserContext.jsx';
 import { NotificationProvider } from './contexts/NotificationContext.jsx';
+import { UserProvider } from './contexts/UserContext.jsx';
+import { QuestionProvider } from './contexts/QuestionContext.jsx';
 import './index.css';
 
 const client = new ApolloClient({
@@ -18,11 +19,13 @@ createRoot(document.getElementById('root')).render(
     <ApolloProvider client={client}>
       <AuthProvider>
         <UserProvider>
-          <NotificationProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
-          </NotificationProvider>
+          <QuestionProvider>
+            <NotificationProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </NotificationProvider>
+          </QuestionProvider>
         </UserProvider>
       </AuthProvider>
     </ApolloProvider>

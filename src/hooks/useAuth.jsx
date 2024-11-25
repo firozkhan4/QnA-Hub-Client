@@ -7,7 +7,7 @@ export default function useAuth() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { setIsAuthenticated } = useContext(AuthContext);
+  const { setIsAuthenticated, setIsAdmin } = useContext(AuthContext);
   const { user, setUser } = useContext(UserContext);
   const API_URI = 'http://localhost:8080/api/auth';
   const navigate = useNavigate();
@@ -39,6 +39,8 @@ export default function useAuth() {
       if (response.ok) {
         setUser(data);
         setIsAuthenticated(true);
+        console.log(data);
+        if (data.role === 'ADMIN') setIsAdmin(true);
         navigate('/');
       } else {
         setError(data.message || 'Authentication failed');
@@ -47,6 +49,7 @@ export default function useAuth() {
     } catch (error) {
       setError(error.message || 'Something went wrong');
       console.error('Auth Error:', error);
+      setIsAdmin(false);
       setIsAuthenticated(false);
     } finally {
       setLoading(false);

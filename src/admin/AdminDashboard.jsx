@@ -1,20 +1,19 @@
+import { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
+import { Notification } from '../components';
+import { NotificationContext } from '../contexts/NotificationContext';
+import AnswerManagement from './AnswerManagement';
 import DashboardHome from './DashboardHome';
 import Header from './Header';
 import QuestionsManagement from './QuestionsManagement';
 import Sidebar from './Sidebar';
 import UsersManagement from './UsersManagement';
-import AnswerManagement from './AnswerManagement';
-import { useContext } from 'react';
-import { NotificationContext } from '../contexts/NotificationContext';
-import { Notification } from '../components';
 
-const AdminDashboard = () => {
-  const { showNotification, handleNotification } =
-    useContext(NotificationContext);
+export default function AdminDashboard() {
+  const { showNotification } = useContext(NotificationContext);
   return (
     <div className="">
-      <div className="">{showNotification && <Notification />}</div>
+      {showNotification && <Notification />}
       <div className="flex">
         <Sidebar />
         <div className="flex-1">
@@ -31,6 +30,4 @@ const AdminDashboard = () => {
       </div>
     </div>
   );
-};
-
-export default AdminDashboard;
+}

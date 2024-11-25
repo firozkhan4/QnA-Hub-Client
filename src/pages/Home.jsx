@@ -1,25 +1,16 @@
-import { useEffect } from 'react';
+import { useContext } from 'react';
 import { Heading, QuestionCard } from '../components/index';
-import useLoadQuestions from '../hooks/useLoadQuestions';
+import { QuestionContext } from '../contexts/QuestionContext';
 
 export default function Home() {
-  const { loading, error, data, loadQuestions } = useLoadQuestions();
-
-  useEffect(() => {
-    loadQuestions();
-
-    return () => {};
-  }, []);
-
-  if (loading) return <p>Loading..</p>;
-  if (error) return <p>Error: {error}</p>;
+  const { questions } = useContext(QuestionContext);
 
   return (
     <div className="bg-white p-4 rounded shadow-sm">
       <div className="border-b-2">
         <Heading title="Top Questions" />
       </div>
-      <QuestionCard questions={data || []} />
+      <QuestionCard Questions={questions} />
     </div>
   );
 }

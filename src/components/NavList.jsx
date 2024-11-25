@@ -1,4 +1,4 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default function NavList({ navList }) {
   return (
@@ -15,12 +15,6 @@ export default function NavList({ navList }) {
           </Link>
         );
       })}
-      {/* <li className="bg-gray-200 p-2 rounded">Home</li>
-      <li>Questions</li>
-      <li>Tags</li>
-      <li>Saves</li>
-      <li>Users</li>
-      <li>Companies</li> */}
     </ul>
   );
 }
