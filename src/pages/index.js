@@ -8,7 +8,7 @@ import Tags from './Tags';
 import Users from './Users';
 import PageLayout from './PageLayout';
 import Question from './Question';
-import Logout from './logout';
+import Logout from './Logout';
 import NotFound from './NotFound';
 import Profile from './Profile';
 
