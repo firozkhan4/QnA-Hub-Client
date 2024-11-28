@@ -1,6 +1,6 @@
 class UserController {
   constructor() {
-    this.baseURL = 'http://localhost:8000/api/users';
+    this.baseURL = 'http://13.233.86.88:8000/api/users';
   }
 
   async getAll() {

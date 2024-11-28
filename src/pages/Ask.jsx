@@ -14,7 +14,7 @@ export default function Ask() {
 
   const createPost = async (postData) => {
     try {
-      const response = await fetch('http://localhost:8000/api/questions', {
+      const response = await fetch('http://13.233.86.88:8000/api/questions', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },

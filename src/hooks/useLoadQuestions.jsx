@@ -10,7 +10,7 @@ export default function useLoadQuestions() {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:8000/api/questions', {
+      const response = await fetch('http://13.233.86.88:8000/api/questions', {
         method: 'GET',
         credentials: 'include',
         headers: {

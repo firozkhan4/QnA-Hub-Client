@@ -1,6 +1,6 @@
 class AuthController {
   constructor() {
-    this.baseURL = 'http://localhost:8000/api/auth';
+    this.baseURL = 'http://13.233.86.88:8000/api/auth';
   }
 
   async logout() {
