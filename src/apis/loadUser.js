@@ -5,7 +5,7 @@ export const loadUser = async () => {
   let data = null;
 
   const res = await axios
-    .post('http://localhost:8080/api/users', {
+    .post('http://localhost:8000/api/users', {
       withCredentials: true,
     })
     .then((res) => {

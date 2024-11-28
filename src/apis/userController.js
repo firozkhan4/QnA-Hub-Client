@@ -1,6 +1,6 @@
 class UserController {
   constructor() {
-    this.baseURL = 'http://localhost:8080/api/users';
+    this.baseURL = 'http://localhost:8000/api/users';
   }
 
   async getAll() {
@@ -52,8 +52,6 @@ class UserController {
       throw error;
     }
   }
-
-  
 }
 
 export default UserController;

@@ -9,7 +9,7 @@ export default function useAuth() {
   const [error, setError] = useState(null);
   const { setIsAuthenticated, setIsAdmin } = useContext(AuthContext);
   const { user, setUser } = useContext(UserContext);
-  const API_URI = 'http://localhost:8080/api/auth';
+  const API_URI = 'http://localhost:8000/api/auth';
   const navigate = useNavigate();
 
   const fetchUserData = async (

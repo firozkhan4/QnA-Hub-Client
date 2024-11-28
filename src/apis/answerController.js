@@ -1,6 +1,6 @@
 class AnswerController {
   constructor() {
-    this.baseURL = 'http://localhost:8080/api/answers';
+    this.baseURL = 'http://localhost:8000/api/answers';
   }
   async create(answerPayload) {
     try {

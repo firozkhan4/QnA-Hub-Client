@@ -1,6 +1,6 @@
 class QuestionVotingController {
   constructor() {
-    this.baseURL = 'http://localhost:8080/api/question-vote';
+    this.baseURL = 'http://localhost:8000/api/question-vote';
   }
 
   async vote(id, voteType) {
