@@ -1,6 +1,7 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import AdminDashboard from './admin/AdminDashboard';
+import LoadingSpinner from './components/LoadingSpinner';
 import { AuthContext } from './contexts/AuthContext';
 import {
   Ask,
@@ -10,15 +11,21 @@ import {
   Logout,
   NotFound,
   PageLayout,
+  Profile,
   Question,
   Questions,
   Saves,
-  Profile,
   Tags,
 } from './pages';
 
 export default function Router() {
   const { isAuthenticated, isAdmin } = useContext(AuthContext);
+  const [showAdmin, setShowAdmin] = useState(false);
+  useEffect(() => {
+    if (isAdmin) {
+      setShowAdmin(true);
+    }
+  }, [isAdmin]);
 
   return (
     <Routes>
@@ -74,15 +81,12 @@ export default function Router() {
         }
       />
 
-      <Route
-        path="/admin"
-        element={
-          <PrivateRoute condition={isAdmin} redirectTo="/not-authorized">
-            <AdminDashboard />
-          </PrivateRoute>
-        }
-      />
-
+      {showAdmin && (
+        <Route
+          path="/admin/*"
+          element={isAdmin ? <AdminDashboard /> : <LoadingSpinner />}
+        />
+      )}
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );

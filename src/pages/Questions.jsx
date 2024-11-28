@@ -7,8 +7,6 @@ export default function Questions() {
 
   useEffect(() => {
     loadQuestions();
-
-    return () => {};
   }, []);
 
   if (loading) return <p>Loading..</p>;
