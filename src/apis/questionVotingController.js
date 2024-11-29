@@ -1,6 +1,6 @@
 class QuestionVotingController {
   constructor() {
-    this.baseURL = 'http://13.233.86.88:8000/api/question-vote';
+    this.baseURL = 'http://13.201.7.212:8000/api/question-vote';
   }
 
   async vote(id, voteType) {

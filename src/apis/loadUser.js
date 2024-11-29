@@ -5,7 +5,7 @@ export const loadUser = async () => {
   let data = null;
 
   const res = await axios
-    .post('http://13.233.86.88:8000/api/users', {
+    .post('http://13.201.7.212:8000/api/users', {
       withCredentials: true,
     })
     .then((res) => {

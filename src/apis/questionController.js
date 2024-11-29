@@ -1,6 +1,6 @@
 class QuestionController {
   constructor() {
-    this.baseURL = 'http://13.233.86.88:8000/api/questions';
+    this.baseURL = 'http://13.201.7.212:8000/api/questions';
   }
 
   async getByID(id) {

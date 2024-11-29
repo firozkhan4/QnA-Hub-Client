@@ -10,7 +10,7 @@ import { QuestionProvider } from './contexts/QuestionContext.jsx';
 import './index.css';
 
 const client = new ApolloClient({
-  uri: 'http://13.233.86.88:8000/graphql',
+  uri: 'http://13.201.7.212:8000/graphql',
   cache: new InMemoryCache(),
 });
 
